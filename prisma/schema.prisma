@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  questions     Question[]  //QuestinとUserはm-n-relation
+  memos         Memo[]      //MemoとUserはone-many-relation
+  
+  @@index([id])
+}
+
+model Question{
+  id              String @id @default(cuid()) //各Questionのid
+  createdAt       DateTime @default(now())    //Question作成日
+  title           String  //Questionのタイトル
+  content         String? @db.LongText //Questionの本文。
+  imageURL        String? //Questionの画像
+  questionType    QuestionType  //画像type or 文章type
+  answerUser      String? @db.LongText //利用者の解答
+  answers         AnswerAI[]  //QuestinとAnswerAIはone-many-relation
+  memos           Memo[]  //QuestinとMemoはone-many-relation
+  user            User   @relation(fields: [userId], references: [id])//QuestinとUserはone-many-relation
+  userId          String 
+  
+  @@index([userId])
+}
+
+model AnswerAI {
+  id              String  @id @default(cuid()) //各Answeのid
+  answerAiEasy    String  @db.LongText  //AIの解答（簡易ver）
+  answerAiNormal  String  @db.LongText  //AIの解答（普通ver）
+  answerAiHard    String  @db.LongText  //AIの解答（難しいver）
+  question        Question  @relation(fields: [questionId], references: [id])
+  questionId      String  @unique
+
+  @@index([questionId])
+}
+
+
+model Memo{
+  id              String @id @default(cuid())  //各メモのid
+  createdAt       DateTime @default(now()) //メモ作成日
+  title           String    //メモのタイトル
+  content         String  @db.LongText  //メモの本文
+  category        MemoCategory //メモのカテゴリ
+  favorite        Boolean   @default(false)  //お気に入り
+  question        Question  @relation(fields: [questionId], references: [id])
+  questionId      String 
+  user            User      @relation(fields: [userId], references: [id])
+  userId          String 
+
+  @@index([userId])
+  @@index([questionId])
+}
+
+enum QuestionType{
+  image 
+  letter
+  basic
+}
+
+enum MemoCategory{
+  word
+  phrase
+  grammar
+  other
+}
