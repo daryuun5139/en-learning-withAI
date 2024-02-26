@@ -1,7 +1,7 @@
 import { createClient } from "microcms-js-sdk";
 import type { MicroCMSImage, MicroCMSQueries } from "microcms-js-sdk";
 
-export type LetterQuestion = {
+export type TranslateQuestion = {
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -43,12 +43,12 @@ export const client = createClient({
 
 // 問題のリストを取得
 export const getList = async (queries?: MicroCMSQueries) => {
-  const [letterQList, imageQList, basicQList] = await Promise.all([
-    client.getList<LetterQuestion>({
+  const [translateQList, imageQList, basicQList] = await Promise.all([
+    client.getList<TranslateQuestion>({
       customRequestInit: {
         cache: "no-store",
       },
-      endpoint: "letterquestions",
+      endpoint: "translatequestions",
       queries,
     }),
     client.getList<ImageQuestion>({
@@ -67,23 +67,23 @@ export const getList = async (queries?: MicroCMSQueries) => {
     }),
   ]);
   return {
-    letterQList: letterQList.contents,
+    translateQList: translateQList.contents,
     imageQList: imageQList.contents,
     basicQList: basicQList.contents,
   };
 };
 
 // 個々の問題を取得(LetterQuestion)
-export const getDetail_letter = async (contentId: string, queries?: MicroCMSQueries) => {
-  const letterQDetail = await client.getListDetail<LetterQuestion>({
+export const getDetail_translate = async (contentId: string, queries?: MicroCMSQueries) => {
+  const translateQDetail = await client.getListDetail<TranslateQuestion>({
     customRequestInit: {
       cache: "no-store",
     },
-    endpoint: "letterquestions",
+    endpoint: "translatequestions",
     contentId,
     queries,
   });
-  return letterQDetail;
+  return translateQDetail;
 };
 
 // 個々の問題を取得(ImageQuestion)

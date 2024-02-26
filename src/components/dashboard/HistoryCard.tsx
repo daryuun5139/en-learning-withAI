@@ -1,17 +1,10 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { getAuthSession } from "@/lib/nextauth";
 import HistoryComponent from "../HistoryComponent";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 
 type Props = {};
 
 const HistoryCard = async () => {
-  const session = await getAuthSession();
-  if (!session?.user) {
-    return redirect("/");
-  }
-
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -21,7 +14,9 @@ const HistoryCard = async () => {
         </div>
       </CardHeader>
       <CardContent>
-        <HistoryComponent limit={5} userId={session.user.id} />
+        <div className="flex flex-col gap-3">
+          <HistoryComponent limit={5} />
+        </div>
       </CardContent>
       <CardFooter className="relative mx-8">
         <Link

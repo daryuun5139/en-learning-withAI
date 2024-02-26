@@ -67,6 +67,7 @@ const AnswerFormForBasicPractice = ({ title, questionType }: Props) => {
         }, 2000);
       },
     });
+    // console.log(form.watch());
   };
   form.watch();
 

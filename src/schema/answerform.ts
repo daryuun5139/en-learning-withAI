@@ -4,5 +4,5 @@ export const answerFormSchema = z.object({
   answer: z.string().optional(),
   title: z.string(),
   content: z.string(),
-  questionType: z.enum(["letter", "image", "basic"]),
+  questionType: z.enum(["translate", "image", "basic"]),
 });

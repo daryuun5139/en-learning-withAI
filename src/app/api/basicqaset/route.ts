@@ -1,7 +1,6 @@
 //Create Basic-QA-set Endpoint
 
 import { prisma } from "@/lib/db";
-import { getAuthSession } from "@/lib/nextauth";
 import { answerFormSchema } from "@/schema/answerform";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -12,15 +11,6 @@ import axios from "axios";
 //①生成したquestionセットをDBに格納する
 export async function POST(req: Request, res: Response) {
   try {
-    const session = await getAuthSession();
-    if (!session?.user) {
-      return NextResponse.json(
-        { error: "You must be logged in to create a game." },
-        {
-          status: 401,
-        }
-      );
-    }
     const body = await req.json();
     //answerFormSchemaに合致するとparseする。
     const { title, content, questionType } = answerFormSchema.parse(body);
@@ -32,7 +22,7 @@ export async function POST(req: Request, res: Response) {
         title: title,
         content: content,
         questionType: questionType,
-        userId: session.user.id,
+        userId: "0000",
       },
     });
     //axiosでapi/questionsにPOST＝questionsが生成される。第２引数がHTTPリクエストボディに追加される。

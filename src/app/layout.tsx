@@ -3,7 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Providers from "@/components/Providers";
-import Navbar from "@/components/header/Navbar";
+import Header from "@/components/header/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,9 +15,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(inter.className, "container min-h-screen pt-16 antialiased")}>
+      <body
+        className={cn(
+          inter.className,
+          "mx-auto flex w-[1000px] items-center justify-center px-10 pt-16"
+        )}
+      >
         <Providers>
-          <Navbar />
+          <Header />
           {children}
         </Providers>
       </body>

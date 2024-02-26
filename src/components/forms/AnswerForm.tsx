@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { ImageQuestion, LetterQuestion } from "@/lib/microcms";
+import { ImageQuestion, TranslateQuestion } from "@/lib/microcms";
 import { MicroCMSImage } from "microcms-js-sdk";
 import { useToast } from "../ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
@@ -50,7 +50,7 @@ const AnswerForm = ({ title, content, questionType }: Props) => {
     defaultValues: {
       title: title,
       content: content,
-      questionType: "letter",
+      questionType: "translate",
     },
   });
 
@@ -72,7 +72,7 @@ const AnswerForm = ({ title, content, questionType }: Props) => {
       onSuccess: ({ questionId }: { questionId: string }) => {
         setFinishedLoading(true);
         setTimeout(() => {
-          router.push(`/checkanswer/${questionId}`);
+          router.push(`/checkanswertranslate/${questionId}`);
         }, 2000);
       },
     });
@@ -80,23 +80,23 @@ const AnswerForm = ({ title, content, questionType }: Props) => {
   form.watch();
 
   return (
-    <Card className="">
-      <CardHeader>
+    <Card>
+      <CardHeader className="pb-0 pt-2">
         <CardTitle className="text-2xl font-bold">type your answer</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="h-[95%] pt-4">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="h-full space-y-4">
             <FormField
               control={form.control}
               name="answer"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="h-[90%]">
                   <FormControl>
                     <Textarea
                       placeholder="Type your answer"
                       {...field}
-                      className="resize-none text-lg"
+                      className="h-full resize-none text-lg"
                     />
                   </FormControl>
                   <FormMessage />

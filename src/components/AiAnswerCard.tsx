@@ -31,7 +31,7 @@ const AiAnswerCard = ({ easy, normal, hard }: Props) => {
               <CardTitle className="text-2xl font-bold">Easy Expression</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <p className="text-xl font-light leading-8">{easy}</p>
+              <p className="text-lg font-light leading-8">{easy}</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -42,7 +42,7 @@ const AiAnswerCard = ({ easy, normal, hard }: Props) => {
               <CardTitle className="text-2xl font-bold">Normal Expression</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <p className="text-xl font-light leading-8">{normal}</p>
+              <p className="text-lg font-light leading-8">{normal}</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -53,7 +53,7 @@ const AiAnswerCard = ({ easy, normal, hard }: Props) => {
               <CardTitle className="text-2xl font-bold">Hard Expression</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <p className="text-xl font-light leading-8">{hard}</p>
+              <p className="text-lg font-light leading-8">{hard}</p>
             </CardContent>
           </Card>
         </TabsContent>
