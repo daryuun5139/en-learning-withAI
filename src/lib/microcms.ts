@@ -38,7 +38,7 @@ type content = {
 
 export const client = createClient({
   serviceDomain: "dcnf9ghklh",
-  apiKey: process.env.API_KEY || "",
+  apiKey: process.env.CMS_API_KEY || "",
 });
 
 // 問題のリストを取得
