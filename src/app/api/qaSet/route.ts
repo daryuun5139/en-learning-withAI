@@ -28,7 +28,7 @@ export async function POST(req: Request, res: Response) {
     });
     //axiosでapi/questionsにPOST＝questionsが生成される。第２引数がHTTPリクエストボディに追加される。
     //axiosとfetchの違い：https://zenn.dev/syu/articles/9840082d1a6633
-    const { data } = await axios.post(`${process.env.API_URL as string}/api/answer`, {
+    const { data } = await axios.post("/api/answer", {
       title,
       content,
       questionType,
