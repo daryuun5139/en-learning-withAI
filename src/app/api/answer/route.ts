@@ -7,6 +7,7 @@ export async function POST(req: Request, res: Response) {
   try {
     const body = await req.json();
     const { content, questionType } = answerFormSchema.parse(body);
+    console.log(content, questionType);
     let answers: any;
     if (questionType === "translate" || "basic") {
       answers = await strict_output(

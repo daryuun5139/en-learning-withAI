@@ -4,9 +4,9 @@
 // レイアウト系インポート
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "../ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { useToast } from "@/components/ui/use-toast";
 // use系インポート
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -17,6 +17,7 @@ import { z } from "zod";
 import { answerFormSchema } from "@/schema/answerform";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
+import Loading from "../Loading";
 
 type Props = {
   title: string;
@@ -67,9 +68,11 @@ const AnswerFormForBasicPractice = ({ title, questionType }: Props) => {
         }, 2000);
       },
     });
-    // console.log(form.watch());
   };
-  form.watch();
+
+  if (showLoader) {
+    return <Loading />;
+  }
 
   return (
     <Card>

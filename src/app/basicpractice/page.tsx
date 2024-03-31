@@ -44,7 +44,7 @@ const BasicPracticeList = async () => {
           {basicQList.map((basicQ: BasicQuestion) => {
             return (
               <Link href={`/basicpractice/${basicQ.id}`}>
-                <Card className="relative h-52 cursor-default px-2 pb-2">
+                <Card className="relative h-52 cursor-default px-2 pb-2" key={basicQ.id}>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 px-2 pb-2">
                     <CardTitle className="text-2xl font-bold">{basicQ.title}</CardTitle>
                   </CardHeader>

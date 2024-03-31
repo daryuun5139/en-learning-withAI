@@ -4,7 +4,7 @@ import Link from "next/link";
 
 type Props = {};
 
-const BasicPracticeCard = (props: Props) => {
+const BasicPracticeCard = () => {
   return (
     <Card className="pb-2 hover:cursor-pointer hover:opacity-75">
       <Link href="/basicpractice">
